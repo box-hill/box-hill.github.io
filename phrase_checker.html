@@ -14,17 +14,18 @@
       <div>
       </div>
       <input type="submit">
-      <button onclick="getData(response)">Click Here</button>
+      <button type="button" onclick="triggerSearch()">SEARCH</button>
       <div>
       </div>
 
-      <p id="test">Click me to change my HTML content</p>
+      <p id="query">Click me to change my HTML content</p>
 
     </form>
 
     <script src="myscripts.js"></script>
-    <script getData();></script>
-    <script src="https://www.googleapis.com/customsearch/v1?key=AIzaSyBwOe5N5d275f_9-XYFfLMrcnm5xgqVJUY&cx=017576662512468239146:omuauf_lfve&q=cars&callback=getData"></script>
+
+    <script src="https://www.googleapis.com/customsearch/v1?key=AIzaSyBwOe5N5d275f_9-XYFfLMrcnm5xgqVJUY&cx=017576662512468239146:omuauf_lfve&q=cars&callback=hndlr"></script>
+    <!-- <script getData();></script> -->
 
   </body>
 
