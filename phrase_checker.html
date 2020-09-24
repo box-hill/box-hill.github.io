@@ -8,23 +8,25 @@
 
   <body>
     <form>
-      <h1 style="color: black; text-align: left;">insert heading</h1>
-      <input type="text" placeholder="First Name" name="first">
-      <input type="password" placeholder="Password" name="password">
+      <h1 style="color: black; text-align: left;">Phrase Checker v1</h1>
+      <input type="text" placeholder="Type your sentence here!" autocomplete="off" id ="search_input" name="search_input">
+      <!-- <input type="password" placeholder="Password" name="password"> -->
       <div>
       </div>
-      <input type="submit">
-      <button type="button" onclick="triggerSearch()">SEARCH</button>
+      <!-- <input type="submit"> -->
+      <input type="button" onclick="triggerSearch()" value="Search">
       <div>
       </div>
 
-      <p id="query">Click me to change my HTML content</p>
+      <p id="general_hits">Number of hits</p>
+      <p id="string_hits">Number of string hits</p>
+
 
     </form>
 
     <script src="myscripts.js"></script>
 
-    <script src="https://www.googleapis.com/customsearch/v1?key=AIzaSyBwOe5N5d275f_9-XYFfLMrcnm5xgqVJUY&cx=017576662512468239146:omuauf_lfve&q=cars&callback=hndlr"></script>
+    <!-- <script src="https://www.googleapis.com/customsearch/v1?key=AIzaSyBwOe5N5d275f_9-XYFfLMrcnm5xgqVJUY&cx=017576662512468239146:omuauf_lfve&q=cars&callback=hndlr"></script> -->
     <!-- <script getData();></script> -->
 
   </body>

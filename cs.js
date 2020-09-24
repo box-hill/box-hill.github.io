@@ -11,7 +11,7 @@ function hndlr(response) {
 function triggersearch(){
   var query=document.getElementById("query").value;
   var JSElement = document.createElement('script');
-  JSElement.src = `https://www.googleapis.com/customsearch/v1?key=${key}&cx=${id}&q=${q}`+query+'&callback=hndlr';
+  JSElement.src = `https://www.googleapis.com/customsearch/v1?key=${key}&cx=${id}&q=${q}`+query+'&callback=hndlr'; // needs fixing
   document.getElementsByTagName('head')[0].appendChild(JSElement);
 }
 
