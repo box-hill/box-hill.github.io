@@ -1,2 +1,2 @@
 # phrase-checker
-Website that checks if phrase is correct (not just grammatically but also for meaning).
+Generates sentences from the internet. Can also generate from selected sources.
