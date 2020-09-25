@@ -40,7 +40,7 @@ document.getElementById("search_input").addEventListener("keydown", function(eve
 
 // just leaving for debugging
 function getData(){
-	src="https://www.googleapis.com/customsearch/v1?key=AIzaSyAezBsTrs0hsvsWZCCJy9Pgglb60weY7wM&cx=22519e5637b61b1c8&q=\"学校に行かない\"&callback=hndlr";
+	src="https://www.googleapis.com/customsearch/v1?key=AIzaSyAezBsTrs0hsvsWZCCJy9Pgglb60weY7wM&cx=22519e5637b61b1c8&q=\"私はちょうど\"&callback=hndlr";
 	console.log("getData executed")
 }
 
@@ -67,15 +67,15 @@ function stringHandler(response) {
 		var item = response.items[i];
 		//console.log(item);
 
-		sentenceParser(item.snippet);
+		sentenceParser(item.snippet, item.title);
 		console.log(item.snippet);
-		document.getElementById("example_sentences").innerHTML += "Source = " + item.htmlFormattedUrl +"<br>"+"<br>"; //  grab url link
+		document.getElementById("example_sentences").innerHTML += "Source = " + item.formattedUrl +"<br>"+"<br>"; //  grab url link
 	}
 	//document.getElementById("example_sentences").innerHTML += "<br>" + response.queries.request[0].totalResults;
 }
 
 // takes htmlSnippet from response and extracts sentence (based on known source?)
-function sentenceParser(sentence){
+function sentenceParser(sentence, title){
 
 	//news articles will return 2019年12月2日 ...  at the start
 	// https://www.w3schools.com/JSREF/jsref_slice_string.asp
@@ -84,22 +84,37 @@ function sentenceParser(sentence){
 	if(n > 0 && n < 15){
 		sentence = sentence.slice(n+5); // remove timestamp from string
 	}
-	// str.trim to remove whitespace
+	// remove all commas and spaces
+	sentence = sentence.replace(/、/g,'');
+	sentence = sentence.replace(/,/g,'');
+	sentence = sentence.replace(/ /g,'');
+	sentence = sentence.replace(/\n/g,'');
+
+	title = title.replace(/、/g,'');
+	title = title.replace(/,/g,'');
+	title = title.replace(/ /g,'');
+	title = title.replace(/\n/g,'');
 
 	// search for start of Phrase
 	n = sentence.search(query_input);
-	console.log("phrase start =  "  + n);
 	if(n === -1){
 		// no phrases can be found, sometimes means that there is a , in the phrase
-		alert('something went wrong, cannot find phrase! I will still display though');
-		document.getElementById("example_sentences").innerHTML +=  sentence + "<br>";
-		return;
+		alert('cannot find phrase in sentence, using title! I will still display title');
+		console.log('cant find phrase! Will try title');
+		sentence = "TITLE: " + title;
+		n = sentence.search(query_input);
+		if(n === -1){
+			console.log('still cant find in title, exitting without printing');
+			return;
+		}
+
+		//return;
 	}
-	//var str = sentence;
+
 
 	// search for start of sentence
 	var start_index = 0;
-	var start_markers = [".", ";", "。", "…", "？"];
+	var start_markers = [".", ";", "。", "…", "？","|"];
 
 	for (i=0;i<start_markers.length;i++) {
 		// check if new start index occurs after start index
@@ -109,24 +124,14 @@ function sentenceParser(sentence){
 		}
 	}
 
-	//
-	// start_index = sentence.lastIndexOf("." , n) + 1; // searchs backwards for punctuation before phrase
-	// if(sentence.lastIndexOf(";", n) > start_index) start_index = sentence.lastIndexOf(";" , n) + 1;
-	// if(sentence.lastIndexOf("。", n) > start_index) start_index = sentence.lastIndexOf("。" , n) + 1;
-	// if(sentence.lastIndexOf("…", n) > start_index) start_index = sentence.lastIndexOf("…" , n) + 1;
-	// // take the biggest start
-	// if(start_index === -1) start_index = 0; // if no punctuation before, then sentence starts at 0.
-
 	console.log("start index =  "  + start_index);
-
-
 	// search for end of sentence
 	var end_index = sentence.length;
 	var n_end;
 	var start_search = query_input.length + n; // index after phrase ends
 	console.log("start search =  "  + start_search);
 
-	var end_markers = [".", ";", "。", "…", "？"];
+	var end_markers = [".", ";", "。", "…", "？","|"];
 
 	for (i=0;i<end_markers.length;i++) {
 		n_end = sentence.indexOf(end_markers[i], start_search);
