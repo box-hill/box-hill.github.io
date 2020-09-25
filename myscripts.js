@@ -40,7 +40,7 @@ document.getElementById("search_input").addEventListener("keydown", function(eve
 
 // just leaving for debugging
 function getData(){
-	src="https://www.googleapis.com/customsearch/v1?key=AIzaSyAezBsTrs0hsvsWZCCJy9Pgglb60weY7wM&cx=22519e5637b61b1c8&q=\"カメラから色を\"&callback=hndlr";
+	src="https://www.googleapis.com/customsearch/v1?key=AIzaSyAezBsTrs0hsvsWZCCJy9Pgglb60weY7wM&cx=22519e5637b61b1c8&q=\"学校に行かない\"&callback=hndlr";
 	console.log("getData executed")
 }
 
@@ -54,7 +54,7 @@ function stringHandler(response) {
 		return;
 	}
 
-	document.getElementById("string_hits").innerHTML += "<br>" + response.queries.request[0].totalResults;
+	document.getElementById("string_hits").innerHTML = "<br>" + response.queries.request[0].totalResults;
 	console.log('string hits = ' + response.queries.request[0].totalResults);
 
 	document.getElementById("example_sentences").innerHTML = ""; // erase previous
@@ -67,20 +67,6 @@ function stringHandler(response) {
 	}
 	//document.getElementById("example_sentences").innerHTML += "<br>" + response.queries.request[0].totalResults;
 }
-
-// general search for key words
-function generalHandler(response) {
-
-	if(response.hasOwnProperty('error')){
-		alert('Api key search limit reached.')
-		console.log('limit reached');
-		return;
-	}
-	document.getElementById("general_hits").innerHTML += "<br>" + response.queries.request[0].totalResults;
-	console.log(response.queries.request[0].totalResults);
-	console.log('general hits = ' + response.queries.request[0].totalResults);
-}
-
 
 function triggerSearch(){
   //var query = document.getElementById("query").value;
@@ -101,14 +87,26 @@ function triggerSearch(){
 	JSElement.src = "https://www.googleapis.com/customsearch/v1?key=" + api_key + "&cx=" + cse_id + "&q=" + string_query +"&callback=stringHandler";
 	document.getElementsByTagName('head')[0].appendChild(JSElement);
 
-	// var JSElement = document.createElement('script');
-	// JSElement.src = "https://www.googleapis.com/customsearch/v1?key=" + api_key + "&cx=" + cse_id + "&q=" + general_query +"&callback=generalHandler";
-  // document.getElementsByTagName('head')[0].appendChild(JSElement);
-
 	console.log("triggersearch executed")
 }
 
-// takes htmlSnippet from response and extracts sentence based on known source asdasdas
-function sentenceParser(){
+// takes htmlSnippet from response and extracts sentence based on known source
+function sentenceParser(sentence, source){
+	//var str = sentence;
+
+	//news articles will return 2019年12月2日 ...  at the start
+	// https://www.w3schools.com/JSREF/jsref_slice_string.asp
+	var n = sentence.search("日 ...") // search for date stamp
+	if(n > 0 && n < 15){
+		sentence.slice(n);
+	}
+	// str.search retruns -1 when not found
+	// str.trim to remove whitespace
+
+	// start of sentence indicated by . ; 。
+	// end of sentence is indicated by . ; 。
+
+	// display sentence
+
 
 }
