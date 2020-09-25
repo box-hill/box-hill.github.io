@@ -60,8 +60,9 @@ function stringHandler(response) {
 	for (var i = 0; i < response.items.length; i++) {
 		var item = response.items[i];
 		console.log(item);
-		document.getElementById("example_sentences").innerHTML += "URL = " + item.htmlFormattedUrl; //  grab url link
-		document.getElementById("example_sentences").innerHTML += "<br>" + item.htmlSnippet + "<br>"; // grab sentence snippet
+
+		document.getElementById("example_sentences").innerHTML +=  item.htmlSnippet + "<br>"; // grab sentence snippet
+		document.getElementById("example_sentences").innerHTML += "URL = " + item.htmlFormattedUrl +"<br>"+"<br>"; //  grab url link
 	}
 	//document.getElementById("example_sentences").innerHTML += "<br>" + response.queries.request[0].totalResults;
 }
