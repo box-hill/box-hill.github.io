@@ -10,9 +10,9 @@
 // https://stackoverflow.com/questions/16040889/google-custom-search-api-in-a-js-file
 
 // google custom search api key:
-//var api_key = "AIzaSyBwOe5N5d275f_9-XYFfLMrcnm5xgqVJUY";
+var api_key = "AIzaSyBwOe5N5d275f_9-XYFfLMrcnm5xgqVJUY";
 //var api_key = "AIzaSyCUMupOrK0nmg2uA8ez9XfA2_7aEEadAXg";
-var api_key = "AIzaSyAezBsTrs0hsvsWZCCJy9Pgglb60weY7wM";
+//var api_key = "AIzaSyAezBsTrs0hsvsWZCCJy9Pgglb60weY7wM";
 // var api_key = "AIzaSyD1WLbCjGmDWklizpFthwy0mUM3kApvlNE";
 // var api_key = "AIzaSyClsHenpG1e5CwZc78z7Kdc4szOkv5Xei4";
 // var api_key = "AIzaSyAcZ_kuyOBcPykg7KbdOKfBRqJhdf56HlQ";
@@ -51,11 +51,16 @@ function stringHandler(response) {
 	if(response.hasOwnProperty('error')){
 		alert('Api key search limit reached.')
 		console.log('limit reached');
-		return;
+		return; // exit function
 	}
 
-	document.getElementById("string_hits").innerHTML = "<br>" + response.queries.request[0].totalResults;
-	console.log('string hits = ' + response.queries.request[0].totalResults);
+	if(response.queries.request[0].totalResults === 0){
+		alert('No results could be found!');
+	}
+	else{
+		document.getElementById("string_hits").innerHTML = response.queries.request[0].totalResults;
+	}
+
 
 	document.getElementById("example_sentences").innerHTML = ""; // erase previous
 	for (var i = 0; i < response.items.length; i++) {
@@ -64,28 +69,74 @@ function stringHandler(response) {
 
 		sentenceParser(item.snippet);
 		console.log(item.snippet);
-		document.getElementById("example_sentences").innerHTML += "URL = " + item.htmlFormattedUrl +"<br>"+"<br>"; //  grab url link
+		document.getElementById("example_sentences").innerHTML += "Source = " + item.htmlFormattedUrl +"<br>"+"<br>"; //  grab url link
 	}
 	//document.getElementById("example_sentences").innerHTML += "<br>" + response.queries.request[0].totalResults;
 }
 
 // takes htmlSnippet from response and extracts sentence (based on known source?)
 function sentenceParser(sentence){
-	//var str = sentence;
-	console.log("type is " + typeof sentence);
+
 	//news articles will return 2019年12月2日 ...  at the start
 	// https://www.w3schools.com/JSREF/jsref_slice_string.asp
 	var n = sentence.search("日 ...") // search for date stamp
-	console.log("n = " + n);
+
 	if(n > 0 && n < 15){
 		sentence = sentence.slice(n+5); // remove timestamp from string
-		console.log("n =  " + n);
 	}
-	// str.search retruns -1 when not found
 	// str.trim to remove whitespace
 
-	// start of sentence indicated by . ; 。
-	// end of sentence is indicated by . ; 。
+	// search for start of Phrase
+	n = sentence.search(query_input);
+	console.log("phrase start =  "  + n);
+	if(n === -1){
+		// no phrases can be found, sometimes means that there is a , in the phrase
+		alert('something went wrong, cannot find phrase! I will still display though');
+		document.getElementById("example_sentences").innerHTML +=  sentence + "<br>";
+		return;
+	}
+	//var str = sentence;
+
+	// if phrase is not at the start
+	var start_index;
+	start_index = sentence.lastIndexOf("." , n) + 1; // searchs backwards for punctuation before phrase
+	if(sentence.lastIndexOf(";", n) > start_index) start_index = sentence.lastIndexOf(";" , n) + 1;
+	if(sentence.lastIndexOf("。", n) > start_index) start_index = sentence.lastIndexOf("。" , n) + 1;
+	if(sentence.lastIndexOf("…", n) > start_index) start_index = sentence.lastIndexOf("…" , n) + 1;
+	// take the biggest start
+	if(start_index === -1) start_index = 0; // if no punctuation before, then sentence starts at 0.
+	console.log("start index =  "  + start_index);
+
+	var end_index;
+	var n_end;
+	var start_search = query_input.length + n; // index after phrase ends
+	console.log("start search =  "  + start_search);
+	end_index = sentence.indexOf("." , start_search); // search for punctuation after phrase
+	// check if sentence ends earlier
+	n_end = sentence.indexOf(";", start_search);
+	console.log("end index =  "  + end_index);
+
+	if( end_index === -1 || (n_end != -1) && (n_end < end_index) ) end_index = n_end;
+	n_end = sentence.indexOf("。", start_search);
+	console.log("end index =  "  + end_index);
+	if( end_index === -1 || (n_end != -1) && (n_end < end_index) )  end_index = n_end;
+
+	n_end = sentence.indexOf("…", start_search);
+	console.log("end index =  "  + end_index);
+	if( end_index === -1 || (n_end != -1) && (n_end < end_index) )  end_index = n_end;
+
+	n_end = sentence.indexOf("？", start_search);
+	console.log("end index =  "  + end_index);
+	if( end_index === -1 || (n_end != -1) && (n_end < end_index) )  end_index = n_end;
+
+	if(end_index === -1) end_index = sentence.length; // sentence has no end
+	else end_index = end_index + 1;
+	console.log("end index =  "  + end_index);
+
+	sentence = sentence.slice(start_index,end_index); // grab sentence from start to end_index
+
+	// make search phrase bold
+	// CODE FOR MAKING STRING BOLD
 
 	// display sentence
 	document.getElementById("example_sentences").innerHTML +=  sentence + "<br>"; // grab sentence snippet
@@ -98,13 +149,11 @@ function triggerSearch(){
 		alert('Input some text!'); // will make this not an alert msg later
 		return false; // stops function and returns
 	}
-	// check input for correctvalues
-	general_query = document.getElementById("search_input").value;
+	// check input for correctvalues, should have no . 。 ;
+	query_input = document.getElementById("search_input").value;
 	string_query = "\"" + document.getElementById("search_input").value + "\"";
 	//query_input =  document.getElementById("search_input").value;
 	//query_input = 'try';
-	console.log("query input is " + general_query);
-	console.log(document.getElementById("search_input"));
 
   var JSElement = document.createElement('script');  // what does this do?
 	JSElement.src = "https://www.googleapis.com/customsearch/v1?key=" + api_key + "&cx=" + cse_id + "&q=" + string_query +"&callback=stringHandler";
