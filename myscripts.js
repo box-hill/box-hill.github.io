@@ -60,12 +60,35 @@ function stringHandler(response) {
 	document.getElementById("example_sentences").innerHTML = ""; // erase previous
 	for (var i = 0; i < response.items.length; i++) {
 		var item = response.items[i];
-		console.log(item);
+		//console.log(item);
 
-		document.getElementById("example_sentences").innerHTML +=  item.htmlSnippet + "<br>"; // grab sentence snippet
+		sentenceParser(item.snippet);
+		console.log(item.snippet);
 		document.getElementById("example_sentences").innerHTML += "URL = " + item.htmlFormattedUrl +"<br>"+"<br>"; //  grab url link
 	}
 	//document.getElementById("example_sentences").innerHTML += "<br>" + response.queries.request[0].totalResults;
+}
+
+// takes htmlSnippet from response and extracts sentence (based on known source?)
+function sentenceParser(sentence){
+	//var str = sentence;
+	console.log("type is " + typeof sentence);
+	//news articles will return 2019年12月2日 ...  at the start
+	// https://www.w3schools.com/JSREF/jsref_slice_string.asp
+	var n = sentence.search("日 ...") // search for date stamp
+	console.log("n = " + n);
+	if(n > 0 && n < 15){
+		sentence = sentence.slice(n+5); // remove timestamp from string
+		console.log("n =  " + n);
+	}
+	// str.search retruns -1 when not found
+	// str.trim to remove whitespace
+
+	// start of sentence indicated by . ; 。
+	// end of sentence is indicated by . ; 。
+
+	// display sentence
+	document.getElementById("example_sentences").innerHTML +=  sentence + "<br>"; // grab sentence snippet
 }
 
 function triggerSearch(){
@@ -88,25 +111,4 @@ function triggerSearch(){
 	document.getElementsByTagName('head')[0].appendChild(JSElement);
 
 	console.log("triggersearch executed")
-}
-
-// takes htmlSnippet from response and extracts sentence based on known source
-function sentenceParser(sentence, source){
-	//var str = sentence;
-
-	//news articles will return 2019年12月2日 ...  at the start
-	// https://www.w3schools.com/JSREF/jsref_slice_string.asp
-	var n = sentence.search("日 ...") // search for date stamp
-	if(n > 0 && n < 15){
-		sentence.slice(n);
-	}
-	// str.search retruns -1 when not found
-	// str.trim to remove whitespace
-
-	// start of sentence indicated by . ; 。
-	// end of sentence is indicated by . ; 。
-
-	// display sentence
-
-
 }
