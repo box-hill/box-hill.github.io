@@ -108,7 +108,7 @@ function triggerSearch(){
 	console.log("triggersearch executed")
 }
 
-// takes htmlSnippet from response and extracts sentence based on known source
+// takes htmlSnippet from response and extracts sentence based on known source asdasdas
 function sentenceParser(){
 
 }
