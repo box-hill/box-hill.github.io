@@ -13,6 +13,10 @@
 //var api_key = "AIzaSyBwOe5N5d275f_9-XYFfLMrcnm5xgqVJUY";
 //var api_key = "AIzaSyCUMupOrK0nmg2uA8ez9XfA2_7aEEadAXg";
 var api_key = "AIzaSyAezBsTrs0hsvsWZCCJy9Pgglb60weY7wM";
+// var api_key = "AIzaSyD1WLbCjGmDWklizpFthwy0mUM3kApvlNE";
+// var api_key = "AIzaSyClsHenpG1e5CwZc78z7Kdc4szOkv5Xei4";
+// var api_key = "AIzaSyAcZ_kuyOBcPykg7KbdOKfBRqJhdf56HlQ";
+
 
 // To create cse_id:
 // https://programmablesearchengine.google.com/about/
@@ -42,14 +46,6 @@ function getData(){
 
 // search for exact string
 function stringHandler(response) {
-	//src = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBwOe5N5d275f_9-XYFfLMrcnm5xgqVJUY&cx=017576662512468239146:omuauf_lfve&q=cars&callback=hndlr";
-	// for (var i = 0; i < response.items.length; i++) {
-	// 	var item = response.items[i];
-	// 	console.log(item);
-	// 	// in production code, item.htmlTitle should have the HTML entities escaped.
-	// 	document.getElementById("query").innerHTML += "<br>" + item.htmlTitle;
-	// }
-
 	// check if search limit reached
 	if(response.hasOwnProperty('error')){
 		alert('Api key search limit reached.')
@@ -64,8 +60,8 @@ function stringHandler(response) {
 	for (var i = 0; i < response.items.length; i++) {
 		var item = response.items[i];
 		console.log(item);
-		// in production code, item.htmlTitle should have the HTML entities escaped.
-		document.getElementById("example_sentences").innerHTML += "<br>" + item.htmlSnippet + "<br>";
+		document.getElementById("example_sentences").innerHTML += "URL = " + item.htmlFormattedUrl; //  grab url link
+		document.getElementById("example_sentences").innerHTML += "<br>" + item.htmlSnippet + "<br>"; // grab sentence snippet
 	}
 	//document.getElementById("example_sentences").innerHTML += "<br>" + response.queries.request[0].totalResults;
 }
@@ -103,9 +99,9 @@ function triggerSearch(){
 	JSElement.src = "https://www.googleapis.com/customsearch/v1?key=" + api_key + "&cx=" + cse_id + "&q=" + string_query +"&callback=stringHandler";
 	document.getElementsByTagName('head')[0].appendChild(JSElement);
 
-	var JSElement = document.createElement('script');
-	JSElement.src = "https://www.googleapis.com/customsearch/v1?key=" + api_key + "&cx=" + cse_id + "&q=" + general_query +"&callback=generalHandler";
-  document.getElementsByTagName('head')[0].appendChild(JSElement);
+	// var JSElement = document.createElement('script');
+	// JSElement.src = "https://www.googleapis.com/customsearch/v1?key=" + api_key + "&cx=" + cse_id + "&q=" + general_query +"&callback=generalHandler";
+  // document.getElementsByTagName('head')[0].appendChild(JSElement);
 
 	console.log("triggersearch executed")
 }
