@@ -97,46 +97,51 @@ function sentenceParser(sentence){
 	}
 	//var str = sentence;
 
-	// if phrase is not at the start
-	var start_index;
-	start_index = sentence.lastIndexOf("." , n) + 1; // searchs backwards for punctuation before phrase
-	if(sentence.lastIndexOf(";", n) > start_index) start_index = sentence.lastIndexOf(";" , n) + 1;
-	if(sentence.lastIndexOf("。", n) > start_index) start_index = sentence.lastIndexOf("。" , n) + 1;
-	if(sentence.lastIndexOf("…", n) > start_index) start_index = sentence.lastIndexOf("…" , n) + 1;
-	// take the biggest start
-	if(start_index === -1) start_index = 0; // if no punctuation before, then sentence starts at 0.
+	// search for start of sentence
+	var start_index = 0;
+	var start_markers = [".", ";", "。", "…", "？"];
+
+	for (i=0;i<start_markers.length;i++) {
+		// check if new start index occurs after start index
+		if(sentence.lastIndexOf(start_markers[i], n) > start_index){
+				start_index = sentence.lastIndexOf(start_markers[i], n); // take the bigger start
+				start_index++;
+		}
+	}
+
+	//
+	// start_index = sentence.lastIndexOf("." , n) + 1; // searchs backwards for punctuation before phrase
+	// if(sentence.lastIndexOf(";", n) > start_index) start_index = sentence.lastIndexOf(";" , n) + 1;
+	// if(sentence.lastIndexOf("。", n) > start_index) start_index = sentence.lastIndexOf("。" , n) + 1;
+	// if(sentence.lastIndexOf("…", n) > start_index) start_index = sentence.lastIndexOf("…" , n) + 1;
+	// // take the biggest start
+	// if(start_index === -1) start_index = 0; // if no punctuation before, then sentence starts at 0.
+
 	console.log("start index =  "  + start_index);
 
-	var end_index;
+
+	// search for end of sentence
+	var end_index = sentence.length;
 	var n_end;
 	var start_search = query_input.length + n; // index after phrase ends
 	console.log("start search =  "  + start_search);
-	end_index = sentence.indexOf("." , start_search); // search for punctuation after phrase
-	// check if sentence ends earlier
-	n_end = sentence.indexOf(";", start_search);
-	console.log("end index =  "  + end_index);
 
-	if( end_index === -1 || (n_end != -1) && (n_end < end_index) ) end_index = n_end;
-	n_end = sentence.indexOf("。", start_search);
-	console.log("end index =  "  + end_index);
-	if( end_index === -1 || (n_end != -1) && (n_end < end_index) )  end_index = n_end;
+	var end_markers = [".", ";", "。", "…", "？"];
 
-	n_end = sentence.indexOf("…", start_search);
-	console.log("end index =  "  + end_index);
-	if( end_index === -1 || (n_end != -1) && (n_end < end_index) )  end_index = n_end;
-
-	n_end = sentence.indexOf("？", start_search);
-	console.log("end index =  "  + end_index);
-	if( end_index === -1 || (n_end != -1) && (n_end < end_index) )  end_index = n_end;
-
-	if(end_index === -1) end_index = sentence.length; // sentence has no end
-	else end_index = end_index + 1;
-	console.log("end index =  "  + end_index);
+	for (i=0;i<end_markers.length;i++) {
+		n_end = sentence.indexOf(end_markers[i], start_search);
+		if( (n_end > 0) && (n_end < end_index)){
+				end_index = n_end + 1; // take the earlier finish
+		}
+	}
+	if(end_index < 1) end_index = sentence.length;
 
 	sentence = sentence.slice(start_index,end_index); // grab sentence from start to end_index
 
 	// make search phrase bold
 	// CODE FOR MAKING STRING BOLD
+
+	//sentence = sentence.trim();
 
 	// display sentence
 	document.getElementById("example_sentences").innerHTML +=  sentence + "<br>"; // grab sentence snippet
