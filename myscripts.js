@@ -44,7 +44,8 @@ function getData(){
 	console.log("getData executed")
 }
 
-// search for exact string
+
+// search for exact string and display sentence
 function stringHandler(response) {
 	// check if search limit reached
 	if(response.hasOwnProperty('error')){
@@ -105,4 +106,9 @@ function triggerSearch(){
   // document.getElementsByTagName('head')[0].appendChild(JSElement);
 
 	console.log("triggersearch executed")
+}
+
+// takes htmlSnippet from response and extracts sentence based on known source
+function sentenceParser(){
+
 }
