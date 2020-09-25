@@ -1,0 +1,63 @@
+body {
+  display: grid;
+  height: 100vh;
+  /* grid-template: 72px 1fr / minmax(25px, 16%) minmax(200px, 25%) 1fr minmax(25px, 16%); // row by col? */
+  grid-template-rows: minmax(25px, 5%) 72px 20px 1fr minmax(25px, 5%);
+  grid-template-columns: minmax(25px, 16%) minmax(200px, 25%) 1fr minmax(25px, 16%);
+
+  /* margin-top: 50px; */
+  /* margin-bottom: 50px;
+  margin-right: 150px;
+  margin-left: 150px; */
+
+}
+
+
+
+/* header {
+  background: lightpink;
+  padding: 20rem;
+  grid-column: 1 / 3;
+  border: 2px solid black;
+  border-radius: 7px;
+} */
+
+.top-bar {
+  background: white;
+  grid-row: 2 / 3;
+  grid-column: 2 / 4;
+  /* padding: 1rem; */
+  padding-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: sans-serif;
+  border: 2px solid black;
+  border-radius: 7px;
+
+  font-size:24px; // can make relative font size later
+  text-align: left;
+  /* text-align:top; */
+
+}
+
+.left-sidebar {
+  background: lightgray;
+  grid-column: 2 / 3;
+  grid-row: 4 / 5;
+  padding: 1rem;
+  border: 2px solid black;
+  border-radius: 7px;
+
+}
+
+.right-sidebar {
+
+  padding: 1rem;
+  grid-row: 4 / 5;
+  grid-column: 3 / 4;
+  border-radius: 15px
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
