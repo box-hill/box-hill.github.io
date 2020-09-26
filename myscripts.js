@@ -20,13 +20,9 @@ var api_key = "AIzaSyBwOe5N5d275f_9-XYFfLMrcnm5xgqVJUY";
 
 // To create cse_id:
 // https://programmablesearchengine.google.com/about/
-// To modify??
+// To modify:
 // https://developers.google.com/custom-search/docs/element#supported_attributes
-//<script async src="https://cse.google.com/cse.js?cx=22519e5637b61b1c8"></script> <div class="gcse-search"></div>
-//
-//var cse_id = "017576662512468239146:omuauf_lfve"; // Custom Search Engine ID should correspond to quotation searches, currently just a random one
-var cse_id = "22519e5637b61b1c8";
-//var query_input = "\"cars\""; // query input
+var cse_id = "22519e5637b61b1c8"; // Custom Search Engine ID should correspond to quotation searches, currently just a random one
 var query_input;
 
 // detect enter in submission form
@@ -114,7 +110,7 @@ function sentenceParser(sentence, title){
 
 	// search for start of sentence
 	var start_index = 0;
-	var start_markers = [".", ";", "。", "…", "？","|"];
+	var start_markers = [".", ";", "。", "…", "？","|","｜","！","!","→"];
 
 	for (i=0;i<start_markers.length;i++) {
 		// check if new start index occurs after start index
@@ -131,7 +127,7 @@ function sentenceParser(sentence, title){
 	var start_search = query_input.length + n; // index after phrase ends
 	console.log("start search =  "  + start_search);
 
-	var end_markers = [".", ";", "。", "…", "？","|"];
+	var end_markers = [".", ";", "。", "…", "？","|","｜","！","!","→"];
 
 	for (i=0;i<end_markers.length;i++) {
 		n_end = sentence.indexOf(end_markers[i], start_search);
