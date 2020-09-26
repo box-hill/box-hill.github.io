@@ -17,7 +17,13 @@ amazon.co.jp
 youtube.com
 eikaiwa.dmm.com
 
-e.g. searches
-犬が飼いたいです vs 犬を飼いたい
+features:
+  which phrase is more common
+犬が飼いたい vs 犬を飼いたい
+犬が飼いたいです
+
 学校に行かない
+学校に行きたくないのですが
+
+  can't think of the word that comes next...
 カメラから色を
