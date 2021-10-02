@@ -1,7 +1,7 @@
 # phrase-checker
 Generates sentences from the internet. Can also generate from selected sources.
 
-To do:
+To do:  
 CSS - search box, results alignment and sizing, mobile friendly  
 Input should have max char input <input type="text" required minlength="6" maxlength="6">  
 Add a default Dark mode (togglable light mode)  
