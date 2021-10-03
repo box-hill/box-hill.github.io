@@ -12,5 +12,5 @@ Switch keys automatically
 Add github link  
 Add example sentences  
 Add about info on side bar  
-
+[Add a dictionary API](https://api.ce-cotoha.com/contents/mypage/index.html)
 
