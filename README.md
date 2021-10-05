@@ -4,7 +4,7 @@ Generates sentences from the internet. Can also generate from selected sources.
 To do:  
 CSS - search box, results alignment and sizing, mobile friendly  
 Show more results (?) - use &start for next pages. For others: https://developers.google.com/custom-search/v1/reference/rest/v1/cse/list  
-'Fill in the blank' feature  by using * for wildcard e.g. 学校*行かない (users can use _ for placeholders)
+'Fill in the blank' feature  by using * for wildcard e.g. 学校*行かない (users can use _ for placeholders)　　
 Input should have max char input <input type="text" required minlength="6" maxlength="6">  
 Add a default Dark mode (togglable light mode)  
 Display number of results with commas (e.g. 2,300,000)  
