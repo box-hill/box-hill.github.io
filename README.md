@@ -6,7 +6,8 @@ CSS - search box, results alignment and sizing, mobile friendly
 Show more results (?) - use &start for next pages. For others: https://developers.google.com/custom-search/v1/reference/rest/v1/cse/list  
 'Fill in the blank' feature  by using * for wildcard e.g. 学校*行かない (users can use _ for placeholders)  
 Add in a 'loader' that will show an element when a search query has been made but hasn't been received yet  
-Input should have max char input <input type="text" required minlength="6" maxlength="6">  
+Input should have max char input <input type="text" required minlength="1" maxlength="20">  
+Add a button to generate random phrases どうして海  
 Add a default Dark mode (togglable light mode)  
 Display number of results with commas (e.g. 2,300,000)  
 Search algorithm (default currently excludes websites like youtube, can include for a separate search result number)  
