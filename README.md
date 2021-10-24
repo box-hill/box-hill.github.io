@@ -4,6 +4,7 @@ Generates sentences from the internet. Can also generate from selected sources.
 To do:  
 CSS - search box, results alignment and sizing, mobile friendly  
 Search results should extract the sentence and have a button '+' to view the whole string hit  
+Make nav/search bar sticky
 Show more results (?) - use &start for next pages. For others: https://developers.google.com/custom-search/v1/reference/rest/v1/cse/list  
 'Fill in the blank' feature  by using * for wildcard e.g. 学校*行かない (users can use _ for placeholders)  
 Add in a 'loader' that will show an element when a search query has been made but hasn't been received yet  
