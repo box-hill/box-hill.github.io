@@ -11,7 +11,8 @@ Add in a 'loader' that will show an element when a search query has been made bu
 Input should have max char input <input type="text" required minlength="1" maxlength="20">  
 Add a button to generate random phrases どうして海  
 Add a default Dark mode (togglable light mode)  
-Display number of results with commas (e.g. 2,300,000)  
+Display number of results with commas (e.g. 2,300,000), array returned should have formattedResults already  
+Add iframe to view websites within browser  
 Search algorithm (default currently excludes websites like youtube, can include for a separate search result number)  
 Switch keys automatically  
 Add github link  
