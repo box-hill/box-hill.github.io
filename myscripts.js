@@ -55,7 +55,9 @@ function queryHandler(response) {
 		document.getElementById("string_hits").innerHTML = "Number of hits: " + response.queries.request[0].totalResults;
 	}
 
-
+	// debug response
+	console.log(response.items);
+	
 	document.getElementById("example_sentences").innerHTML = "例文｜Sentences"+"<br>"+"<br>"; // erase previous
 	for (var i = 0; i < response.items.length; i++) {
 		var item = response.items[i];
