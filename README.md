@@ -10,6 +10,7 @@ Show more results (?) - use &start for next pages. For others: https://developer
 Add in a 'loader' that will show an element when a search query has been made but hasn't been received yet  
 Input should have max char input <input type="text" required minlength="1" maxlength="20">  
 Add a button to generate random phrases どうして海  
+Add a welcome page, that goes where results are shown but is only shown on loading (ie when the user hasn't searched anything yet)  
 Add a default Dark mode (togglable light mode)  
 Display number of results with commas (e.g. 2,300,000), array returned should have formattedResults already  
 Add iframe to view websites within browser  
